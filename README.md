@@ -1,6 +1,6 @@
 ### Blog Personal
  
-Proyecto de blog personal simple desarrollado en .NET. Lo hice al mismo tiempo que aprendía sobre API's y html/css. Básicamente permite a un usuario administrador crear, editar y eliminar posts, y a los visitantes simplemente leer los posts. Para mantenerlo simple, preferí guardar todo en .json y no usar una base de datos avanzada. La parte js del frontend la hice con ayuda de un LLM, el resto es fruto de la lectura, el análisis de proyectos similares y el esfuerzo por entender.
+Proyecto de blog personal simple desarrollado en .NET. Lo hice al mismo tiempo que aprendía sobre API's y html/css. Básicamente permite a un usuario administrador crear, editar y eliminar posts, y a los visitantes simplemente leer los posts. Para mantenerlo simple, preferí guardar todo en .json y no usar una base de datos avanzada. Tanto la parte js del frontend como algunos aspectos de los test los hice con ayuda de un LLM, el resto es fruto de la lectura, el análisis de proyectos similares y el esfuerzo por entender.
 
 ### Funcionalidades generales
 
