@@ -1,0 +1,39 @@
+# Dependencies
+## Ignore build output and cache directories
+**/[Bb]in/
+**/[Oo]bj/
+
+# IDEs and editors
+## JetBrains Rider
+.idea/
+*.sln.DotSettings.user
+
+## Visual Studio
+.vs/
+*.user
+*.suo
+
+# User-specific files
+## Ignore sensitive settings files that should not be committed
+appsettings.Development.json
+/blog-personal/wwwroot/data/admin.json
+**/Properties/launchSettings.json
+
+# Log files
+**/[Ll]ogs/
+*.log
+
+# Test results
+**/TestResults/
+*.trx
+
+# Build artifacts
+*.nupkg
+*.dll
+*.exe
+*.pdb
+*.exe.config
+
+# Other
+/blog-personal.Test/bin/
+/blog-personal.Test/obj/

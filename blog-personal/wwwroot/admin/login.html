@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - monkBlog</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="container">
+    <div class="terminal-title">monk's blog - login</div>
+
+    <div class="section">
+        <div class="command-line">
+            <span class="prompt">C:\Users\bruno\blog></span> cd admin\login
+        </div>
+        <div class="output">
+            <p>Acceso restringido: <span class="highlight">administrador</span></p>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="command-line">
+            <span class="prompt">C:\Users\bruno\blog\admin\login></span> auth admin
+        </div>
+        <div class="output">
+            <form id="login-form">
+                <p>
+                    <label for="username">Usuario:</label><br>
+                    <input type="text" id="username" name="username" required style="width:100%; background-color: var(--dark-gray); color: var(--fg-color); border:1px solid var(--gray); padding:0.3rem;">
+                </p>
+                <p>
+                    <label for="password">Contraseña:</label><br>
+                    <input type="password" id="password" name="password" required style="width:100%; background-color: var(--dark-gray); color: var(--fg-color); border:1px solid var(--gray); padding:0.3rem;">
+                </p>
+                <p>
+                    <button type="submit" class="github-btn">Ingresar</button>
+                    <a href="../blog.html" class="github-btn">Cancelar</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('login-form').addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        try {
+            const response = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                localStorage.setItem('token', data.token);
+                window.location.href = 'dashboard.html';
+            } else {
+                alert('Credenciales inválidas. Por favor, inténtalo de nuevo.');
+            }
+        } catch (error) {
+            console.error('Error de red:', error);
+            alert('Error de red. Por favor, comprueba tu conexión.');
+        }
+    });
+</script>
+
+</body>
+</html>

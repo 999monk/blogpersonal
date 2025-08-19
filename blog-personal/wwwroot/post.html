@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>monkBlog</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+    <div class="terminal-title">monk's blog</div>
+
+    <div class="section" id="post-section">
+    </div>
+
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', async function() {
+        const params = new URLSearchParams(window.location.search);
+        const postId = params.get('id');
+
+        if (postId) {
+            try {
+                const response = await fetch(`/api/post/${postId}`);
+                if (response.ok) {
+                    const post = await response.json();
+                    renderPost(post);
+                } else {
+                    console.error('Error al cargar el post:', response.statusText);
+                    renderError();
+                }
+            } catch (error) {
+                console.error('Error de red:', error);
+                renderError();
+            }
+        } else {
+            renderError();
+        }
+    });
+
+    function renderPost(post) {
+        const postSection = document.getElementById('post-section');
+        postSection.innerHTML = `
+            <div class="command-line">
+                <span class="prompt">C:\\Users\\bruno\\blog\\posts></span> type ${post.id}.json
+            </div>
+            <div class="output">
+                <h1>${post.title}</h1>
+                <div>${post.content}</div>
+                <p><small>Publicado el: ${new Date(post.publishedDate).toLocaleString()}</small></p>
+            </div>
+        `;
+    }
+
+    function renderError() {
+        const postSection = document.getElementById('post-section');
+        postSection.innerHTML = `
+            <div class="command-line">
+                <span class="prompt">C:\\Users\\bruno\\blog\\posts></span>
+            </div>
+            <div class="output">
+                <p>Error: No se pudo cargar el post.</p>
+            </div>
+        `;
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>monkBlog</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="container">
+    <div class="terminal-title">monk's blog</div>
+
+    <div class="section">
+        <div class="command-line">
+            <span class="prompt">C:\Users\bruno\blog></span> dir posts
+        </div>
+        <div class="output">
+            <p>**Descripción general del blog**</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="command-line">
+            <span class="prompt">C:\Users\bruno\blog\posts></span> ls
+        </div>
+        <div class="output" id="post-list">
+            <p>**Lista de artículos**</p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', async function() {
+        try {
+            const response = await fetch('/api/post');
+            if (response.ok) {
+                const posts = await response.json();
+                renderPostList(posts);
+            } else {
+                console.error('Error al cargar los posts:', response.statusText);
+                renderError();
+            }
+        } catch (error) {
+            console.error('Error de red:', error);
+            renderError();
+        }
+    });
+
+    function renderPostList(posts) {
+        const postList = document.getElementById('post-list');
+        if (posts.length === 0) {
+            postList.innerHTML = '<p>No hay posts disponibles.</p>';
+            return;
+        }
+
+        let html = '<ul>';
+        posts.forEach(post => {
+            html += `<li><a href="post.html?id=${post.id}">${post.title}</a> - <small>${new Date(post.publishedDate).toLocaleDateString()}</small></li>`;
+        });
+        html += '</ul>';
+
+        postList.innerHTML = html;
+    }
+
+    function renderError() {
+        const postList = document.getElementById('post-list');
+        postList.innerHTML = '<p>Error: No se pudo cargar la lista de posts.</p>';
+    }
+</script>
+
+</body>
+</html>

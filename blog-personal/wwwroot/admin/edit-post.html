@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Post - monkBlog</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="container">
+    <div class="terminal-title">monk's blog - editar post</div>
+
+    <div class="section">
+        <div class="command-line">
+            <span class="prompt">C:\Users\bruno\blog></span> cd posts\edit
+        </div>
+        <div class="output">
+            <p>Editando post con <span class="highlight" id="post-id"></span></p>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="command-line">
+            <span class="prompt">C:\Users\bruno\blog\posts\edit></span> form edit-post
+        </div>
+        <div class="output">
+            <form id="edit-post-form">
+                <input type="hidden" id="id" name="id">
+                <p>
+                    <label for="title">Título:</label><br>
+                    <input type="text" id="title" name="title" required style="width:100%; background-color: var(--dark-gray); color: var(--fg-color); border:1px solid var(--gray); padding:0.3rem;">
+                </p>
+                <p>
+                    <label for="content">Contenido:</label><br>
+                    <textarea id="content" name="content" rows="8" required style="width:100%; background-color: var(--dark-gray); color: var(--fg-color); border:1px solid var(--gray); padding:0.3rem;"></textarea>
+                </p>
+                <p>
+                    <button type="submit" class="github-btn">Actualizar</button>
+                    <a href="dashboard.html" class="github-btn">Cancelar</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = 'login.html';
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', async function() {
+        const params = new URLSearchParams(window.location.search);
+        const postId = params.get('id');
+        document.getElementById('post-id').textContent = `ID=${postId}`;
+
+        if (postId) {
+            try {
+                const response = await fetch(`/api/post/${postId}`);
+                if (response.ok) {
+                    const post = await response.json();
+                    document.getElementById('id').value = post.id;
+                    document.getElementById('title').value = post.title;
+                    document.getElementById('content').value = post.content;
+                } else {
+                    console.error('Error al cargar el post:', response.statusText);
+                }
+            } catch (error) {
+                console.error('Error de red:', error);
+            }
+        }
+    });
+
+    document.getElementById('edit-post-form').addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const id = document.getElementById('id').value;
+        const title = document.getElementById('title').value;
+        const content = document.getElementById('content').value;
+        const token = localStorage.getItem('token');
+
+        const post = {
+            id: id,
+            title: title,
+            content: content
+        };
+
+        try {
+            const response = await fetch(`/api/post/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(post)
+            });
+
+            if (response.ok) {
+                window.location.href = 'dashboard.html';
+            } else {
+                console.error('Error al actualizar el post:', response.statusText);
+                alert('Error al actualizar el post.');
+            }
+        } catch (error) {
+            console.error('Error de red:', error);
+            alert('Error de red.');
+        }
+    });
+</script>
+
+</body>
+</html>

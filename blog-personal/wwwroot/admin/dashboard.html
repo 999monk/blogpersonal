@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - monkBlog</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="container">
+    <div class="terminal-title">monk's blog - dashboard (admin)</div>
+
+    <div class="section">
+        <div class="command-line">
+            <span class="prompt">C:\Users\bruno\blog></span> cd admin\dashboard
+        </div>
+        <div class="output">
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="command-line">
+            <span class="prompt">C:\Users\bruno\blog\admin\dashboard></span> ls
+        </div>
+        <div class="output" id="post-list">
+            <p class="list-item"><a href="add-post.html" class="link">➜ Agregar nuevo post</a></p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = 'login.html';
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', async function() {
+        try {
+            const response = await fetch('/api/post');
+            if (response.ok) {
+                const posts = await response.json();
+                renderPostList(posts);
+            } else {
+                console.error('Error al cargar los posts:', response.statusText);
+                renderError();
+            }
+        } catch (error) {
+            console.error('Error de red:', error);
+            renderError();
+        }
+    });
+
+    function renderPostList(posts) {
+        const postList = document.getElementById('post-list');
+        let html = '<p class="list-item"><a href="add-post.html" class="link">➜ Agregar nuevo post</a></p>';
+
+        if (posts.length === 0) {
+            html += '<p>No hay posts disponibles.</p>';
+        } else {
+            html += '<table>';
+            html += '<tr><th>Título</th><th>Fecha de Publicación</th><th>Acciones</th></tr>';
+            posts.forEach(post => {
+                html += `
+                    <tr>
+                        <td>${post.title}</td>
+                        <td>${new Date(post.publishedDate).toLocaleDateString()}</td>
+                        <td>
+                            <a href="edit-post.html?id=${post.id}" class="link">Editar</a>
+                            <a href="#" class="link" onclick="deletePost('${post.id}')">Eliminar</a>
+                        </td>
+                    </tr>
+                `;
+            });
+            html += '</table>';
+        }
+
+        postList.innerHTML = html;
+    }
+
+    function renderError() {
+        const postList = document.getElementById('post-list');
+        postList.innerHTML += '<p>Error: No se pudo cargar la lista de posts.</p>';
+    }
+
+    async function deletePost(id) {
+        if (confirm('¿Estás seguro de que quieres eliminar este post?')) {
+            const token = localStorage.getItem('token');
+            try {
+                const response = await fetch(`/api/post/${id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    location.reload();
+                } else {
+                    console.error('Error al eliminar el post:', response.statusText);
+                    alert('Error al eliminar el post.');
+                }
+            } catch (error) {
+                console.error('Error de red:', error);
+                alert('Error de red.');
+            }
+        }
+    }
+</script>
+
+</body>
+</html>

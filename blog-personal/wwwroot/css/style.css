@@ -1,0 +1,134 @@
+:root {
+    --bg-color: #282828;
+    --fg-color: #ebdbb2;
+    --gray: #928374;
+    --dark-gray: #3c3836;
+    --green: #b8bb26;
+    --blue: #83a598;
+    --yellow: #fabd2f;
+    --red: #fb4934;
+    --purple: #d3869b;
+    --orange: #fe8019;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Consolas', 'Courier New', monospace;
+    background-color: var(--bg-color);
+    color: var(--fg-color);
+    line-height: 1.5;
+    font-size: 16px;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.terminal-title {
+    color: var(--gray);
+    font-size: 14px;
+    margin-bottom: 2rem;
+}
+
+.section {
+    margin-bottom: 2rem;
+}
+
+.prompt {
+    color: var(--green);
+    font-weight: normal;
+}
+
+.path {
+    color: var(--blue);
+}
+
+.command-line {
+    margin-bottom: 0.5rem;
+    font-family: inherit;
+}
+
+.output {
+    margin-left: 0;
+    margin-bottom: 1.5rem;
+    color: var(--fg-color);
+}
+
+.output p {
+    margin-bottom: 0.5rem;
+}
+
+.highlight {
+    color: var(--yellow);
+}
+
+.link {
+    color: var(--blue);
+    text-decoration: underline;
+}
+
+.link:hover {
+    color: var(--purple);
+}
+
+.list-item {
+    display: block;
+    margin-bottom: 0.3rem;
+}
+
+.project {
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+}
+
+.project-title {
+    color: var(--orange);
+    font-weight: bold;
+}
+
+.project-desc {
+    color: var(--gray);
+    margin-left: 2ch;
+    margin-bottom: 0.3rem;
+}
+
+.github-btn {
+    color: var(--blue);
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-left: 2ch;
+    border: 1px solid var(--blue);
+    padding: 0.1rem 0.5rem;
+    border-radius: 3px;
+    display: inline-block;
+    transition: all 0.2s ease;
+}
+
+.github-btn:hover {
+    background-color: var(--blue);
+    color: var(--bg-color);
+}
+
+.contact-item {
+    display: inline-block;
+    margin-right: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 1rem 0.5rem;
+    }
+    
+    .contact-item {
+        display: block;
+        margin-right: 0;
+    }
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Post - monkBlog</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="container">
+    <div class="terminal-title">monk's blog - agregar post</div>
+
+    <div class="section">
+        <div class="command-line">
+            <span class="prompt">C:\Users\bruno\blog></span> cd posts\add
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="command-line">
+            <span class="prompt">C:\Users\bruno\blog\posts\add></span> form new-post
+        </div>
+        <div class="output">
+            <form id="add-post-form">
+                <p>
+                    <label for="title">Título:</label><br>
+                    <input type="text" id="title" name="title" required style="width:100%; background-color: var(--dark-gray); color: var(--fg-color); border:1px solid var(--gray); padding:0.3rem;">
+                </p>
+                <p>
+                    <label for="content">Contenido:</label><br>
+                    <textarea id="content" name="content" rows="8" required style="width:100%; background-color: var(--dark-gray); color: var(--fg-color); border:1px solid var(--gray); padding:0.3rem;"></textarea>
+                </p>
+                <p>
+                    <button type="submit" class="github-btn">Guardar</button>
+                    <a href="dashboard.html" class="github-btn">Cancelar</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = 'login.html';
+        }
+    });
+
+    document.getElementById('add-post-form').addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const title = document.getElementById('title').value;
+        const content = document.getElementById('content').value;
+        const token = localStorage.getItem('token');
+
+        const post = {
+            title: title,
+            content: content,
+            author: "bruno" 
+        };
+
+        try {
+            const response = await fetch('/api/post', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(post)
+            });
+
+            if (response.ok) {
+                const newPost = await response.json();
+                window.location.href = `../post.html?id=${newPost.id}`;
+            } else {
+                console.error('Error al crear el post:', response.statusText);
+                alert('Error al crear el post. Por favor, inténtalo de nuevo.');
+            }
+        } catch (error) {
+            console.error('Error de red:', error);
+            alert('Error de red. Por favor, comprueba tu conexión.');
+        }
+    });
+</script>
+
+</body>
+</html>
