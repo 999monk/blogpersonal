@@ -1,15 +1,1 @@
-  blog-personal.Test pruebaerror con 1 errores (1,8s)
-    D:\DEV\proyectos\blog-personal\blog-personal.Test\Controllers\PostControllerIntegrationTests.cs(34): error TESTERROR:
-      blog_personal.Test.Controllers.PostControllerIntegrationTests.GetAll_EmptyBlog_ReturnsEmptyList (9ms): Mensaje de error: Assert.Empty() Failure: Collection was
-       not empty
-      Collection: [Post { ActualizedPubDate = 0001-01-01T00:00:00.0000000, Content = "Content 1", Id = "bdf6ccf1-23ec-46da-8cc0-1ea5a1e96417", IsPublushed = False, P
-      ublishedDate = 2025-08-19T17:26:32.1255234-03:00, ··· }, Post { ActualizedPubDate = 0001-01-01T00:00:00.0000000, Content = "Content 2", Id = "3511abc2-6055-4af
-      7-a930-8fee5f0293f3", IsPublushed = False, PublishedDate = 2025-08-19T17:26:32.1522830-03:00, ··· }, Post { ActualizedPubDate = 0001-01-01T00:00:00.0000000, Co
-      ntent = "Content 3", Id = "85d9aad1-97f8-4f26-bffa-259d9882a0e1", IsPublushed = False, PublishedDate = 2025-08-19T17:26:32.1563252-03:00, ··· }]
-      Seguimiento de la pila:
-         at blog_personal.Test.Controllers.PostControllerIntegrationTests.GetAll_EmptyBlog_ReturnsEmptyList() in D:\DEV\proyectos\blog-personal\blog-personal.Test\Co
-      ntrollers\PostControllerIntegrationTests.cs:line 34
-      --- End of stack trace from previous location ---
 
-Resumen de pruebas: total: 15; con errores: 1; correcto: 14; omitido: 0; duración: 1,7 s
-Compilación error con 1 errores y 12 advertencias en 6,8s
