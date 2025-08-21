@@ -4,13 +4,13 @@ Proyecto de blog personal simple desarrollado en .NET. Lo hice al mismo tiempo q
 
 ### Funcionalidades generales
 
-*   **Gestión de Posts**: El administrador puede crear, editar y eliminar posts a través de un panel de administración. El acceso (Usuario y Contraseña) es configurable.
-*   **Visualización de Posts**: Los visitantes pueden ver una lista de todos los posts y hacer clic en cada uno para leer el contenido completo.
-*   **Autenticación de Administrador**: El panel de administración está protegido por un sistema de inicio de sesión basado en JWT.
+*   **Gestión de posts**: El administrador puede crear, editar y eliminar posts a través de un panel de administración. El acceso (Usuario y Contraseña) es configurable.
+*   **Visualización de posts**: Los visitantes pueden ver una lista de todos los posts y hacer clic en cada uno para leer el contenido completo.
+*   **Autenticación de administrador**: El panel de administración está protegido por un sistema de inicio de sesión basado en JWT.
 
 ### Estructura
 
-*   **`blog-personal`**: El proyecto principal de ASP.NET Core.
+*   **`blog-personal`**
     *   **`Controllers`**: Contiene los controladores de la API para los posts y la autenticación.
     *   **`Models`**: Contiene los modelos de datos para `Post` y `AdminUser`.
     *   **`Servicios`**: Contiene la lógica de negocio para la gestión de posts y la autenticación.
